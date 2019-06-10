@@ -73,5 +73,23 @@ public class TestTemplateProcessor implements DataSourceType{
 		PowerMock.replayAll(dsc);
 		//初始化一个待测试类（SUT）的实例
 		tp = new TemplateProcessor();
+		//使用EasyMock
+		ConstDataSource source = new ConstDataSource();
+		DataSourceConfig dsc = EasyMock.createMock(DataSourceConfig.class);
+		TemplateProcessor professor = new TemplateProcessor();
+		EasyMock.expect(dsc.getConstDataSource()).andReturn(source);
+		EasyMock.expect(dsc.getConstDataSource()).andStubReturn(null);
+
+		//使用静态方法
+		PowerMock.mockStatic(DataSourceConfig.class);
+		EasyMock.expect(DataSourceConfig.newInstance()).andReturn(dsc);
+		//5. 重放所有的行为。
+		PowerMock.replayAll(dsc);
+		//初始化一个待测试类（SUT）的实例
+		tp = new TemplateProcessor();
+		//5. 重放所有的行为。
+		PowerMock.replayAll(dsc);
+		//初始化一个待测试类（SUT）的实例
+		tp = new TemplateProcessor();
 	}
 }
